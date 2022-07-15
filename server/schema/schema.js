@@ -91,74 +91,97 @@ const mutation = new GraphQLObjectType({
           email: args.email,
           phone: args.phone,
         });
-        return client.save()
+        return client.save();
       },
     },
     //Delete client
-    deleteClient:{
-      type:ClientType,
-      args:{id:{type:GraphQLNonNull(GraphQLID)}},
-      resolve(parent,args){
-        return Client.findByIdAndRemove(args.id)
-      }
+    deleteClient: {
+      type: ClientType,
+      args: { id: { type: GraphQLNonNull(GraphQLID) } },
+      resolve(parent, args) {
+        return Client.findByIdAndRemove(args.id);
+      },
     },
     //Update client
     // updateClient:{
     //   type:ClientType,
     //   args:{
-    //     id:{type:GraphQLNonNull(GraphQLString)},
-    //     name:{type:GraphQLNonNull(GraphQLString)},
-    //     email:{type:GraphQLNonNull(GraphQLString)},
-    //     phone:{type:GraphQLNonNull(GraphQLString)}
+    //     id:{type:GraphQLString},
+    //     name:{type:GraphQLString},
+    //     email:{type:GraphQLString},
+    //     phone:{type:GraphQLString}
     //   },
-    //   resolve(parent,args){
-    //     const client=new Client({
-    //     id:{type:GraphQLNonNull(GraphQLString)},
-    //       name:args.name,
-    //       email:args.email,
-    //       phone:args.phone
-    //     })
-    //     return client.
-    //   }
-    // }
+    // },
 
     //Add project
-    addProject:{
-      type:ProjectType,
-      args:{
-        name:{type:GraphQLNonNull(GraphQLString)},
-        description:{type:GraphQLNonNull(GraphQLString)},
-        status:{
-          type:new GraphQLEnumType({
-            name:'ProjectStatus',
-            values:{
-              'new':{value:'Not Started'},
-              'pregress':{value:'In progress'},
-              'completed':{value:'Completed'},
-            }
+    addProject: {
+      type: ProjectType,
+      args: {
+        name: { type: GraphQLNonNull(GraphQLString) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectStatus",
+            values: {
+              new: { value: "Not Started" },
+              pregress: { value: "In progress" },
+              completed: { value: "Completed" },
+            },
           }),
-          defaultValue:'Not Started'
+          defaultValue: "Not Started",
         },
-        clientId:{type:GraphQLNonNull(GraphQLID)}
+        clientId: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent,args){
-        const project=new Project({
-          name:args.name,
-          description:args.description,
-          status:args.status,
-          clientId:args.clientId,
-        })
-        return project.save()
-      }
+      resolve(parent, args) {
+        const project = new Project({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          clientId: args.clientId,
+        });
+        return project.save();
+      },
     },
     //delete project
-    deleteProject:{
-      type:ProjectType,
-      args:{id:{type:GraphQLNonNull(GraphQLString)}},
-      resolve(parent,args){
-        return Project.findByIdAndRemove(args.id)
-      }
-    }
+    deleteProject: {
+      type: ProjectType,
+      args: { id: { type: GraphQLNonNull(GraphQLString) } },
+      resolve(parent, args) {
+        return Project.findByIdAndRemove(args.id);
+      },
+    },
+    //Update project
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLString },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectStatusUpdate",
+            values: {
+              new: { value: "Not Started" },
+              pregress: { value: "In progress" },
+              completed: { value: "Completed" },
+            },
+          }),
+        },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
   },
 });
 
