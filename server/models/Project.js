@@ -2,15 +2,15 @@ const mongoose=require('mongoose')
 
 const ProjectSchema=new mongoose.Schema({
     name:{
-        type:string,
+        type:String,
         required:['please add a name field']
     },
     description:{
-        type:string,
+        type:String,
         required:['please add a description field']
     },
     status:{
-        type:string,
+        type:String,
         enum:['Not Started','In Pregress','Completed'],
         required:['please add a status field']
     },
@@ -19,3 +19,4 @@ const ProjectSchema=new mongoose.Schema({
         ref:'Client'
     }
 })
+module.exports=mongoose.model('Project',ProjectSchema)
