@@ -1,12 +1,18 @@
 import {FaTrash} from 'react-icons/fa'
+import {DELETE_CLIENT} from '../mutations/clientMutations'
+import {useMutation} from '@apollo/client'
 const ClientRow = ({client}) => {
+  const [deleteClient]=useMutation(DELETE_CLIENT,{
+    variables:{id:client.id},
+    refetchQueries:[{query:GET_CLIENTS}]
+  })
   return (
     <tr>
         <td>{client.name}</td>
         <td>{client.email}</td>
         <td>{client.phone}</td>
         <td>
-            <button className="btn btn-danger btn-sm">
+            <button onClick={deleteClient} className="btn btn-danger btn-sm">
               <FaTrash/>
             </button>
         </td>
