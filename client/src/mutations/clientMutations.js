@@ -9,4 +9,17 @@ mutation deleteClient($id:ID!){
     }
 }
 `
+
+// const ADD_CLIENT=gql`
+// mutation addClient(){
+//     addClient(id:$id){
+//         id,
+//         name,
+//         email,
+//         phone
+//     }
+// }
+// `
+
+
 export {DELETE_CLIENT}
