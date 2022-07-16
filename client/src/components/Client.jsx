@@ -1,23 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
-// import ClientRow from './ClientRow'
-const GET_CLIENTS=gql`
-query getClient{
-    clients{
-        id,
-        name,
-        email,
-        phone
-      }
-}
-`
+import { useQuery } from "@apollo/client";
+import ClientRow from './ClientRow'
+import {GET_CLIENTS} from '../queries/ClientQueries'
 const Client = () => {
-    const {Loading,error,data}=useQuery(GET_CLIENTS)
-    console.log(data);
-    if(Loading)return <p>Loading...</p>
-    if(error)return <p>Something went wrong</p>
+    const {loading,error,data}=useQuery(GET_CLIENTS)
+    // console.log(data);
+    if (loading) return <h1>Loading...</h1>;
+  if (error) return <p>Something Went Wrong</p>;
   return (
     <>
-    {!Loading && !error && (
+    {!loading && !error && (
         <table className="table table-hover mt-3">
             <thead>
                 <tr>
@@ -29,9 +20,9 @@ const Client = () => {
             </thead>
             <tbody>
                 {
-                    // data.clients.map((client)=>(
-                    //     <ClientRow key={client.id} client={client}/>
-                    // ))
+                    data.clients.map((client)=>(
+                        <ClientRow key={client.id} client={client}/>
+                    ))
                 }
             </tbody>
         </table>

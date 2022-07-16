@@ -1,3 +1,4 @@
+import {FaTrash} from 'react-icons/fa'
 const ClientRow = ({client}) => {
   return (
     <tr>
@@ -5,7 +6,9 @@ const ClientRow = ({client}) => {
         <td>{client.email}</td>
         <td>{client.phone}</td>
         <td>
-            <button className="btn btn-danger btn-sm"></button>
+            <button className="btn btn-danger btn-sm">
+              <FaTrash/>
+            </button>
         </td>
     </tr>
   )
