@@ -4,7 +4,7 @@ import Spinner from "./Spinner";
 import ProjectCard from "./ProjectCard";
 const Projects = () => {
   const { loading, error, data } = useQuery(GET_PROJECT);
-  console.log(data);
+//   console.log(data);
   if (loading) return <Spinner />;
   if (error) return <p>Something went wrong</p>;
   return (

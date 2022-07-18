@@ -12,4 +12,20 @@ query getProjects{
     }
 }
 `
-export {GET_PROJECT}
+const GET_PROJECTS=gql`
+query getProject($id:ID!){
+    project(id:$id){
+        id,
+        name,
+        description,
+        status,
+        client{
+            id,
+            name,
+            email,
+            phone
+        }
+    }
+}
+`
+export {GET_PROJECT,GET_PROJECTS}
